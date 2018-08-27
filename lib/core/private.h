@@ -873,6 +873,10 @@ struct lws {
 	struct lws_dll_lws dll_hrtimer;
 	struct lws_dll_lws dll_buflist; /* guys with pending rxflow */
 
+#if defined(LWS_WITH_THREADPOOL)
+	struct lws_threadpool_task *tp_task;
+#endif
+
 #if defined(LWS_WITH_PEER_LIMITS)
 	struct lws_peer *peer;
 #endif
