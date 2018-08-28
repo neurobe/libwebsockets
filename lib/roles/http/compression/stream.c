@@ -35,7 +35,12 @@ lws_http_compression_apply(struct lws *wsi, const char *name,
 			   unsigned char **p, unsigned char *end, char decomp)
 {
 	size_t n;
-	const char *a = lws_hdr_simple_ptr(wsi, WSI_TOKEN_HTTP_ACCEPT_ENCODING);
+	const char *a;
+
+	if (!wsi->http.ah)
+		return 1;
+
+	a = lws_hdr_simple_ptr(wsi, WSI_TOKEN_HTTP_ACCEPT_ENCODING);
 
 	for (n = 0; n < LWS_ARRAY_SIZE(lcs_available); n++) {
 		/* if name is non-NULL, choose only that compression method */
